@@ -1,0 +1,40 @@
+title: Manuel Rueda
+email: blog@manrueda.com.ar
+description: >
+  The passion of develop and try weird things...
+baseurl: "/" # the subpath of your site, e.g. /blog
+url: "https://manrueda.com.ar" # the base hostname & protocol for your site, e.g. http://example.com
+google_analytics: 'UA-48130906-3'
+disqus_shortname: 'manuelrueda'
+
+author:
+  name: 'Manuel Rueda'
+  email: manuel.rueda.un@gmail.com
+  twitter_username: man_rueda
+  github_username:  manrueda
+  linkedin_username:  manuel-rueda-17b5b240
+
+# Build settings
+defaults:
+  -
+    scope:
+      path: ''
+      type: 'posts'
+    values:
+        layout: 'post'
+
+# Build settings
+destination: _site
+paginate: 10
+permalink: /:year/:title/
+markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  # use Github Flavored Markdown
+  input: GFM
+  # do not replace newlines by <br>s
+  hard_wrap: false
+
+gems: ['jekyll-paginate']
+exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png']
