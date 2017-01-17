@@ -24,10 +24,10 @@ If you have a good set of hooks for validation, like a **travis/jenkings** build
 
 Greenkeeper provide three [plans](http://greenkeeper.io/#plans), one is free!!
 
-* Open Source (FREE): 
+* Open Source (FREE):
  * Unlimited public repos
  * Public queue (might take a while to update)
-* Individual ($14/month): 
+* Individual ($14/month):
  * Unlimited privates repos
  * Faster queue
  * Online support

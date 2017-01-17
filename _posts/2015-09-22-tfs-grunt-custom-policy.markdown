@@ -22,7 +22,7 @@ Because of the custom polices runs locally, we don't have a performance issue in
 ## Policy class structure
 The policy class must inherit from ```PolicyBase``` and have the ```Serializable``` attribute. This force you to overwrite some methods.
 
-```language-csharp
+```csharp
 [Serializable]
 public class GruntRunnerPolicy: PolicyBase {
 
@@ -78,7 +78,7 @@ The idea is to run the task and evaluate the exit code to evaluate the result of
 
 With this method we can find for the *Grunt executable*
 
-```language-csharp
+```csharp
 private string FindGruntDirectory() {
   Process whereProcess = new Process();
   whereProcess.StartInfo.FileName = "where.exe";
@@ -110,7 +110,7 @@ To find the *Gruntfile.js* that contains the task, the idea is put a *.json* fil
 
 That said, the policy needs to search up to the root of the file system for each check-in file, searching for the *.json* file and at the same level can find the *Gruntfile.js*.
 
-```language-csharp
+```csharp
 public static string SearchGruntParentDirectory(string path) {
   if (path == Path.GetFullPath(path + "\\..")) {
     return null;
@@ -127,7 +127,8 @@ public static string SearchGruntParentDirectory(string path) {
 
 My idea was to put the name of the task in the *GruntRunnerPolicy.json*, maybe was a justification for put this files in the TFS hahaha.
 Something simple like this:
-```language-javascript
+
+```json
 {
   "GruntTask":"validateMyCheckIn"
 }
@@ -135,11 +136,11 @@ Something simple like this:
 
 The last thing to do is run the task and expect for the result:
 
-```language-csharp
+```csharp
 public int Run(string GruntDirectory, string WorkingDirectory, string Task, List<string> Parameters) {
   var log = String.Empty;
   var errLog = String.Empty;
-  
+
   var processInfo = new ProcessStartInfo("cmd.exe", "/c " + GruntDirectory + " --no-color " + Task + " " + String.Join(" ", Parameters));
   processInfo.CreateNoWindow = true;
   processInfo.UseShellExecute = false;

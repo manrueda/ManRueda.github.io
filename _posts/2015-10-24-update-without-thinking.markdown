@@ -23,7 +23,7 @@ I have all my data on external drives, so that wasn't a problem. But i have a bu
 
 To avoid to configure all that again by hand, i create a script that configures all the OS like i want, applications, themes, icons, system configs, NPM packages, IDE extensiones, etc.
 
-I put it in a Github repository so everyone can fork it and make their own. 
-https://github.com/ManRueda/ubuntu-initializer
+I put it in a Github repository so everyone can fork it and make their own.
+[https://github.com/ManRueda/ubuntu-initializer](https://github.com/ManRueda/ubuntu-initializer)
 
 **Warning:** The title is only a title, never update with out thinking!!! hahah

@@ -13,7 +13,7 @@ tags:
 
 On this publication i'm going to talk about the [Agile Keychain Design](https://support.1password.com/agile-keychain-design/). The structure, the decryption flow and implementation.
 
-###### A little bit of history
+## A little bit of history
 This sensitive data storage desing was created by [AgileBits](https://agilebits.com/) on 2008 to replace the OS X Keychain in the [1Password](https://agilebits.com/onepassword) application.
 The main benefits of replace the OS X Keychain was:
 
@@ -24,7 +24,7 @@ The main benefits of replace the OS X Keychain was:
 ## The structure
 The storage is based on a zip-like file with the ```.agilekeychain_zip``` extension. And have an internal folder structure like this:
 
-```language-ruby
+```
 myStorage.agilekeychain_zip
 +-- config
     +-- domains
@@ -38,9 +38,11 @@ myStorage.agilekeychain_zip
         +-- encryptionKeys.js
     +-- <more profiles>
 ```
+
 ### encryptionKeys.js
 Take a look to the ```encryptionKeys.js```:
-```language-javascript
+
+```json
 {
   "list": [{
     "data": "U2FsdGVkX19cm85vzXmRCZyaVYd...",
@@ -59,7 +61,8 @@ Take a look to the ```encryptionKeys.js```:
   "SL5": "30737A49AF124394B4CF97F65761769D"
 }
 ```
-The ```list``` property lists all the key to decrypt the passwords. 
+
+The ```list``` property lists all the key to decrypt the passwords.
 The ```level``` represent the security level related to the password content. The ```data``` contains a BASE-64 representation of the content key encrypted with the master key with [PBKDF2](http://en.wikipedia.org/wiki/PBKDF2) the number of iterations defined in ```iterations```.
 The ```validation``` is the decrypted key encrypted with it self, to validate the decryption process.
 
@@ -76,7 +79,7 @@ All the files with this extension are *content keys* and are a JSON with this pr
 
 There are other properties of 1Password, like types, names, URLs, etc. But there are not critical to the decrypt process.
 
-```language-javascript
+```json
 {
   "keyID": "30737A49AF124394B4CF97F65761769D",
   "locationKey": "someSite.com",
@@ -110,7 +113,7 @@ In the short way to decrypt a content you need to follow this steps.
 
 This explanation could be a little bit hard to understand, because of that... here is this implemented in JS with Node JS.
 
-```language-javascript
+```js
 var crypto = require('crypto');
 
 var content = 'U2FsdGVkX1/rlHCO4K1g3M...';
@@ -163,8 +166,10 @@ function deriveKey(key, salt){
 
 }
 ```
+
 The result logged in the console will be something like this, the result can be different for different types of passwords.
-```language-javascript
+
+```js
 {
   htmlAction: 'https://mysite.com/',
   htmlID: 'passwordExpired',
@@ -190,4 +195,4 @@ The result logged in the console will be something like this, the result can be 
 ```
 
 In this GitHub repo is an real implementation of this in a basic Key Chain manager.
-https://github.com/ManRueda/1password-manager
+[https://github.com/ManRueda/1password-manager](https://github.com/ManRueda/1password-manager)
